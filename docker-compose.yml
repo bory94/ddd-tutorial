@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+  mysql:
+    container_name: mysql8.0.28-ddd
+    image: mysql:8.0.28
+    platform: linux/amd64
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_DATABASE=dddtutorial
+      - TZ=Asia/Seoul
+    command: [ '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci' ]
+    ports:
+      - "3307:3306"
+    networks:
+      - ddd-network
+    restart: always
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+
+networks:
+  ddd-network:
+    driver: bridge
+

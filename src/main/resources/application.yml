@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    hikari:
+      jdbc-url: "jdbc:mysql://localhost:3307/dddtutorial?characterEncoding=UTF-8&useTimezone=true&serverTimezone=Asia/Seoul"
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: ddd
+      password: ddd
+      maximum-pool-size: 30
+      minimum-idle: 30
+      pool-name: hikari
+
+
+logging:
+  level:
+    org.springframework.jdbc.core: TRACE
+    com.bory.dddtutorial: DEBUG
