@@ -11,7 +11,7 @@ abstract class AbstractEvent(
 ) {
     override fun toString(): String {
         return """
-            ClientCreated(
+            ${this.javaClass.name}(
                 uuid=$uuid, 
                 createdAt=$createdAt, 
                 correlationId=$correlationId, 
