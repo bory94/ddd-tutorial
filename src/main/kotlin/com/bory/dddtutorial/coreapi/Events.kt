@@ -22,32 +22,36 @@ abstract class AbstractEvent(
 }
 
 data class ClientCreated(
+    override val correlationId: UUID? = null,
     override val payload: Client
-) : AbstractEvent() {
+) : AbstractEvent(correlationId = correlationId, payload = payload) {
     override fun toString(): String {
         return super.toString()
     }
 }
 
 data class ClientUpdated(
+    override val correlationId: UUID? = null,
     override val payload: Client
-) : AbstractEvent() {
+) : AbstractEvent(correlationId = correlationId, payload = payload) {
     override fun toString(): String {
         return super.toString()
     }
 }
 
 data class ProjectAdded(
+    override val correlationId: UUID? = null,
     override val payload: Client
-) : AbstractEvent() {
+) : AbstractEvent(correlationId = correlationId, payload = payload) {
     override fun toString(): String {
         return super.toString()
     }
 }
 
 data class ProjectUpdated(
+    override val correlationId: UUID? = null,
     override val payload: Client
-) : AbstractEvent() {
+) : AbstractEvent(correlationId = correlationId, payload = payload) {
     override fun toString(): String {
         return super.toString()
     }
