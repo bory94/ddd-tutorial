@@ -1,7 +1,7 @@
 package com.bory.dddtutorial.service
 
-import com.bory.dddtutorial.domain.Client
-import com.bory.dddtutorial.domain.Project
+import com.bory.dddtutorial.coreapi.Client
+import com.bory.dddtutorial.coreapi.Project
 import com.bory.dddtutorial.dto.ClientDto
 import com.bory.dddtutorial.dto.ProjectDto
 import com.bory.dddtutorial.repository.ClientRepository
@@ -13,10 +13,11 @@ import org.springframework.transaction.annotation.Transactional
 class ClientService(
     private val clientRepository: ClientRepository
 ) {
-    fun findAll(): Iterable<Client> = clientRepository.findAll()
+    fun findAll(): List<ClientDto> =
+        clientRepository.findAll().map { it.toDto() }
 
     fun create(clientDto: ClientDto): ClientDto {
-        val client = Client.from(clientDto)
+        val client = Client(clientDto)
         return clientRepository.save(client).toDto()
     }
 
@@ -29,8 +30,8 @@ class ClientService(
         val foundClient = clientRepository.findById(id)
             .orElseThrow { throw IllegalArgumentException("client id[$id] not found") }
 
-        val updatingClient = foundClient.copy(name = clientDto.name)
-        return clientRepository.save(updatingClient).toDto()
+        foundClient.updateClient(clientDto)
+        return clientRepository.save(foundClient).toDto()
     }
 
     fun addProject(id: Long, projectDto: ProjectDto): ClientDto {

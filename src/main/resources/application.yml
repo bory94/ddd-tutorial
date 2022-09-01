@@ -5,12 +5,24 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: ddd
       password: ddd
-      maximum-pool-size: 30
-      minimum-idle: 30
+      maximum-pool-size: 40
+      minimum-idle: 40
       pool-name: hikari
 
+log4jdbc:
+  dump:
+    sql:
+      addsemicolon: true
+      maxlinelength: 0
+  trim.sql.extrablanklines: false
 
 logging:
   level:
-    org.springframework.jdbc.core: TRACE
     com.bory.dddtutorial: DEBUG
+    jdbc:
+      resultsettable: info
+      sqltiming: info
+      sqlonly: fatal
+      audit: fatal
+      resultset: fatal
+      connection: fatal
