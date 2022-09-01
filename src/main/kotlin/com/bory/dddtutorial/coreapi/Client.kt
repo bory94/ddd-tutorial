@@ -22,7 +22,7 @@ data class Client(
         dto.projects.map(Project::fromDto).toSet()
     ) {
         checkProjectsAddable()
-        registerEvent(ClientCreated(this))
+        registerEvent(ClientCreated(payload = this))
     }
 
     fun toDto() = ClientDto(
@@ -33,8 +33,7 @@ data class Client(
 
     fun updateClient(dto: ClientDto) {
         this.name = dto.name
-
-        registerEvent(ClientUpdated(this))
+        registerEvent(ClientUpdated(payload = this))
     }
 
     private fun checkProjectsAddable(newProjects: Set<Project> = setOf()) =
@@ -47,7 +46,7 @@ data class Client(
 
         projects += project
 
-        registerEvent(ProjectAdded(this))
+        registerEvent(ProjectAdded(payload = this))
     }
 
     fun updateProject(pid: Long, project: Project) {
@@ -56,7 +55,7 @@ data class Client(
 
         existsProject.name = project.name
 
-        registerEvent(ProjectUpdated(this))
+        registerEvent(ProjectUpdated(payload = this))
     }
 }
 
