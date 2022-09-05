@@ -12,5 +12,8 @@ data class HikariPoolProperties(
     val password: String,
     val maximumPoolSize: Int,
     val minimumIdle: Int,
-    val poolName: String
+    val poolName: String,
+    val connectionTimeout: Long,
+    val idleTimeout: Long,
+    val maxLifetime: Long
 )

@@ -13,13 +13,23 @@ class DatasourceConfig(
     private val hikariPoolProperties: HikariPoolProperties
 ) {
     @Bean
-    fun dataSource() = HikariDataSource().apply {
-        driverClassName = hikariPoolProperties.driverClassName
-        jdbcUrl = hikariPoolProperties.jdbcUrl
-        username = hikariPoolProperties.username
-        password = hikariPoolProperties.password
-        maximumPoolSize = hikariPoolProperties.maximumPoolSize
-        minimumIdle = hikariPoolProperties.minimumIdle
-        poolName = hikariPoolProperties.poolName
+    fun dataSource(): HikariDataSource {
+        val dataSource = HikariDataSource()
+
+        with(hikariPoolProperties) {
+            dataSource.driverClassName = driverClassName
+            dataSource.jdbcUrl = jdbcUrl
+            dataSource.username = username
+            dataSource.password = password
+            dataSource.maximumPoolSize = maximumPoolSize
+            dataSource.minimumIdle = minimumIdle
+            dataSource.poolName = poolName
+            dataSource.connectionTimeout = connectionTimeout
+            dataSource.idleTimeout = idleTimeout
+            dataSource.maxLifetime = maxLifetime
+        }
+
+        return dataSource
+
     }
 }
