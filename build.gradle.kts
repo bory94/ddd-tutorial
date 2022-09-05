@@ -21,6 +21,8 @@ repositories {
     mavenCentral()
 }
 
+extra["springCloudVersion"] = "2021.0.3"
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
@@ -30,10 +32,19 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.integralblue:log4jdbc-spring-boot-starter:2.0.0")
+    implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
+    implementation("io.opentracing.brave:brave-opentracing:1.0.0")
+
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("mysql:mysql-connector-java")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+    }
 }
 
 tasks.withType<KotlinCompile> {

@@ -12,7 +12,7 @@ abstract class AbstractEvent(
     override fun toString(): String {
         return """
             ${this.javaClass.simpleName}(
-                uuid=$uuid, 
+                uuid=$uuid,  
                 createdAt=$createdAt, 
                 correlationId=$correlationId, 
                 payload=$payload

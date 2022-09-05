@@ -2,6 +2,8 @@ package com.bory.dddtutorial.coreapi
 
 import com.bory.dddtutorial.dto.ClientDto
 import com.bory.dddtutorial.dto.ProjectDto
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.data.annotation.Id
 import org.springframework.data.domain.AbstractAggregateRoot
 import org.springframework.data.relational.core.mapping.Table
@@ -14,6 +16,7 @@ data class Client(
 ) : AbstractAggregateRoot<Client>() {
     companion object {
         private const val MAXIMUM_PROJECTS_SIZE = 4
+        private val LOGGER: Logger = LoggerFactory.getLogger(Client::class.java)
     }
 
     constructor(dto: ClientDto) : this(
@@ -33,6 +36,8 @@ data class Client(
 
     fun updateClient(dto: ClientDto) {
         this.name = dto.name
+
+        LOGGER.debug("Updating Domain Entity on ${Thread.currentThread().name}")
         registerEvent(ClientUpdated(payload = this))
     }
 

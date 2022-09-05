@@ -20,5 +20,6 @@ class DatasourceConfig(
         password = hikariPoolProperties.password
         maximumPoolSize = hikariPoolProperties.maximumPoolSize
         minimumIdle = hikariPoolProperties.minimumIdle
+        poolName = hikariPoolProperties.poolName
     }
 }

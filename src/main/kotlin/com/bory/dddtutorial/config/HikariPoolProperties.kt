@@ -11,5 +11,6 @@ data class HikariPoolProperties(
     val username: String,
     val password: String,
     val maximumPoolSize: Int,
-    val minimumIdle: Int
+    val minimumIdle: Int,
+    val poolName: String
 )

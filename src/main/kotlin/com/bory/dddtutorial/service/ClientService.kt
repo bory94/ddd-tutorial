@@ -5,6 +5,8 @@ import com.bory.dddtutorial.coreapi.Project
 import com.bory.dddtutorial.dto.ClientDto
 import com.bory.dddtutorial.dto.ProjectDto
 import com.bory.dddtutorial.repository.ClientRepository
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -13,6 +15,10 @@ import org.springframework.transaction.annotation.Transactional
 class ClientService(
     private val clientRepository: ClientRepository
 ) {
+    companion object {
+        private val LOGGER: Logger = LoggerFactory.getLogger(ClientService::class.java)
+    }
+
     fun findAll(): List<ClientDto> =
         clientRepository.findAll().map { it.toDto() }
 
@@ -27,6 +33,7 @@ class ClientService(
             .toDto()
 
     fun update(id: Long, clientDto: ClientDto): ClientDto {
+        LOGGER.debug("Client Updating on [${Thread.currentThread().name}]")
         val foundClient = clientRepository.findById(id)
             .orElseThrow { throw IllegalArgumentException("client id[$id] not found") }
 

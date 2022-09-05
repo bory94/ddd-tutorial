@@ -5,9 +5,19 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: ddd
       password: ddd
-      maximum-pool-size: 40
-      minimum-idle: 40
+      maximum-pool-size: 100
+      minimum-idle: 20
       pool-name: hikari
+
+  sleuth:
+    trace-id128: true
+    sampler:
+      probability: 1.0
+    baggage:
+      remote-fields: request_id
+
+  application:
+    name: ddd-tutorial
 
 log4jdbc:
   dump:
@@ -16,9 +26,13 @@ log4jdbc:
       maxlinelength: 0
   trim.sql.extrablanklines: false
 
+
 logging:
   level:
     com.bory.dddtutorial: DEBUG
+    org.springframework:
+      transaction.support.TransactionSynchronizationUtils: DEBUG
+      web.servlet.DispatcherServlet: DEBUG
     jdbc:
       resultsettable: info
       sqltiming: info
