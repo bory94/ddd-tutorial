@@ -34,11 +34,13 @@ data class Client(
         }.toSet()
     )
 
-    fun updateClient(dto: ClientDto) {
+    fun updateClient(dto: ClientDto): Client {
         this.name = dto.name
 
         LOGGER.debug("Updating Domain Entity on ${Thread.currentThread().name}")
         registerEvent(ClientUpdated(payload = this))
+
+        return this
     }
 
     private fun checkProjectsAddable(newProjects: Set<Project> = setOf()) =
@@ -46,21 +48,25 @@ data class Client(
             throw throw IllegalArgumentException("Projects size should not be more than 4")
         else Unit
 
-    fun addProject(project: Project) {
+    fun addProject(project: Project): Client {
         checkProjectsAddable(setOf(project))
 
         projects += project
 
         registerEvent(ProjectAdded(payload = this))
+
+        return this
     }
 
-    fun updateProject(pid: Long, project: Project) {
+    fun updateProject(pid: Long, project: Project): Client {
         val existsProject = projects.firstOrNull { it.id == pid }
             ?: throw IllegalArgumentException("No Such Project id[$pid]")
 
         existsProject.name = project.name
 
         registerEvent(ProjectUpdated(payload = this))
+
+        return this
     }
 }
 

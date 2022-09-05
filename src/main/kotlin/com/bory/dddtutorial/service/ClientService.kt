@@ -23,8 +23,7 @@ class ClientService(
         clientRepository.findAll().map { it.toDto() }
 
     fun create(clientDto: ClientDto): ClientDto {
-        val client = Client(clientDto)
-        return clientRepository.save(client).toDto()
+        return clientRepository.save(Client(clientDto)).toDto()
     }
 
     fun findById(id: Long): ClientDto =
@@ -37,25 +36,27 @@ class ClientService(
         val foundClient = clientRepository.findById(id)
             .orElseThrow { throw IllegalArgumentException("client id[$id] not found") }
 
-        foundClient.updateClient(clientDto)
-        return clientRepository.save(foundClient).toDto()
+
+        return clientRepository.save(
+            foundClient.updateClient(clientDto)
+        ).toDto()
     }
 
     fun addProject(id: Long, projectDto: ProjectDto): ClientDto {
         val foundClient = clientRepository.findById(id)
             .orElseThrow { throw IllegalArgumentException("client id[$id] not found") }
 
-        foundClient.addProject(Project(projectDto.id, projectDto.name))
-
-        return clientRepository.save(foundClient).toDto()
+        return clientRepository.save(
+            foundClient.addProject(Project(projectDto.id, projectDto.name))
+        ).toDto()
     }
 
     fun updateProject(cid: Long, pid: Long, projectDto: ProjectDto): ClientDto {
         val foundClient = clientRepository.findById(cid)
             .orElseThrow { throw IllegalArgumentException("client id[$cid] not found") }
 
-        foundClient.updateProject(pid, Project(projectDto.id, projectDto.name))
-
-        return clientRepository.save(foundClient).toDto()
+        return clientRepository.save(
+            foundClient.updateProject(pid, Project(projectDto.id, projectDto.name))
+        ).toDto()
     }
 }
