@@ -30,7 +30,7 @@ data class ClientCreated(
     }
 }
 
-data class ClientUpdated(
+data class ClientNameChanged(
     override val correlationId: UUID? = null,
     override val payload: Client
 ) : AbstractEvent(correlationId = correlationId, payload = payload) {
@@ -48,7 +48,7 @@ data class ProjectAdded(
     }
 }
 
-data class ProjectUpdated(
+data class ProjectNameChanged(
     override val correlationId: UUID? = null,
     override val payload: Client
 ) : AbstractEvent(correlationId = correlationId, payload = payload) {

@@ -2,9 +2,9 @@ package com.bory.dddtutorial.event
 
 import brave.SpanCustomizer
 import com.bory.dddtutorial.coreapi.ClientCreated
-import com.bory.dddtutorial.coreapi.ClientUpdated
+import com.bory.dddtutorial.coreapi.ClientNameChanged
 import com.bory.dddtutorial.coreapi.ProjectAdded
-import com.bory.dddtutorial.coreapi.ProjectUpdated
+import com.bory.dddtutorial.coreapi.ProjectNameChanged
 import io.opentracing.Tracer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -30,7 +30,7 @@ class ClientEventListener(
 
     @NewSpan
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    fun on(event: ProjectUpdated) {
+    fun on(event: ProjectNameChanged) {
         LOGGER.debug("After Project Updated ::: $event on ${Thread.currentThread().name}")
     }
 
@@ -42,7 +42,7 @@ class ClientEventListener(
 
     @NewSpan
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    fun on(event: ClientUpdated) {
+    fun on(event: ClientNameChanged) {
         tracer.activeSpan().setTag("Event-Class", event.javaClass.name)
         spanCustomizer.tag("Event-UUID", event.uuid.toString())
         spanCustomizer.tag("Event-Correlation-UUID", event.correlationId?.toString() ?: "")

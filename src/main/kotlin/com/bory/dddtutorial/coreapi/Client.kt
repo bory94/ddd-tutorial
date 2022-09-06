@@ -38,7 +38,7 @@ data class Client(
         name = dto.name
 
         LOGGER.debug("Updating Domain Entity on ${Thread.currentThread().name}")
-        registerEvent(ClientUpdated(payload = this))
+        registerEvent(ClientNameChanged(payload = this))
     }
 
     private fun checkProjectsAddable(newProjects: Set<Project> = setOf()) =
@@ -60,7 +60,7 @@ data class Client(
 
         existsProject.name = project.name
 
-        registerEvent(ProjectUpdated(payload = this))
+        registerEvent(ProjectNameChanged(payload = this))
     }
 }
 
